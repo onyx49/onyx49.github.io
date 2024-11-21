@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Voting Page</h1>
+
+        <!-- Presidential Candidates -->
+        <section class="category">
+            <h2>Presidential Candidates</h2>
+            <div class="candidates" id="president-candidates">
+                <div class="candidate" onclick="selectCandidate(this, 'president')">
+                    <img src="images/Enoch Ankomah Asare- President.JPG" alt="Candidate 1">
+                    <p>Enoch Ankomah Asare</p>
+                </div>
+                <div class="candidate" onclick="selectCandidate(this, 'president')">
+                    <img src="images/Belinda Nketia2 - President.jpg" alt="Candidate 2">
+                    <p>Belinda Nketia</p>
+                </div>
+                <div class="candidate" onclick="selectCandidate(this, 'president')">
+                    <img src="images/Mensah Aserl - President.jpg" alt="Candidate 3">
+                    <p>Mensah Aserl</p>
+                </div>
+                <div class="candidate" onclick="selectCandidate(this, 'president')">
+                    <img src="images/Isaac Fosu- President.png" alt="Candidate 4">
+                    <p>Isaac Fosu</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vice Presidents -->
+        <section class="category">
+            <h2>Vice Presidents</h2>
+            <div class="candidates" id="vice-president-candidates">
+                <div class="candidate" onclick="selectCandidate(this, 'vice-president')">
+                    <img src="images/Emmanuel Boahen Fiifi Boahen Tawiah - Vice Prsident.jpg" alt="Candidate 1">
+                    <p>Emmanuel Boahen Fiifi Tawiah</p>
+                </div>
+                <div class="candidate" onclick="selectCandidate(this, 'vice-president')">
+                    <img src="images/Zanita Serwaa Livingston- Vice President BC.jpg" alt="Candidate 2">
+                    <p>Zanita Serwaa Livingston</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- General Secretary -->
+        <section class="category">
+            <h2>General Secretary</h2>
+            <div class="candidates" id="general-secretary-candidates">
+                <div class="candidate" onclick="selectCandidate(this, 'general-secretary')">
+                    <img src="images/Tracy Juliana- General Secretary.jpg" alt="Candidate 1">
+                    <p>Tracy Juliana</p>
+                </div>
+                <div class="candidate" onclick="selectCandidate(this, 'general-secretary')">
+                    <img src="images/Rebecca Ampah_new- General Secretary.JPG" alt="Candidate 2">
+                    <p>Rebecca Ampah</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Organisers -->
+        <section class="category">
+            <h2>Organisers</h2>
+            <div class="candidates" id="organiser-candidates">
+                <div class="candidate" onclick="selectCandidate(this, 'organiser')">
+                    <img src="images/Stiles Benjamin Junior- Organiser.jpg" alt="Candidate 1">
+                    <p>Stiles Benjamin</p>
+                </div>
+                <div class="candidate" onclick="selectCandidate(this, 'organiser')">
+                    <img src="images/Emmanuel Konduah - Organiser.JPG" alt="Candidate 2">
+                    <p>Emmanuel Konduah</p>
+                </div>
+            </div>
+        </section>
+
+        <button class="submit-btn">Submit Vote</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
