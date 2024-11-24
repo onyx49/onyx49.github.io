@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voting Page</title>
     <link rel="stylesheet" href="style.css">
+
+    <script>
+    // Allowed referring URL (exact or partial match)
+    const allowedReferrer = "https://n-xfia6lxisrtv72gyoy46cn4x3f7gcyq3hp36mzy-0lu-script.googleusercontent.com/";
+
+    // Check the document.referrer property
+    if (!document.referrer || !document.referrer.includes(allowedReferrer)) {
+      // Redirect or block access if referrer doesn't match
+      document.body.innerHTML = "<h1>Access Denied</h1><p>You cannot access this page directly.</p>";
+    }
+  </script>
 </head>
 <body>
     <div class="container">
