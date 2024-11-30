@@ -17,7 +17,7 @@
                     <label for="otp" class="form-label">Enter OTP</label>
                     <input type="text" id="otp" class="form-control" placeholder="Enter 6-digit OTP" maxlength="6" disabled required>
                 </div>
-                <p id="sent_otp" class="text-success" style="display: none;">Hi!, ${extract_values(name)}We have sent a 6 digit pin to the phone number ${extract_values(phone)}</p>
+                <p id="sent_otp" class="text-success" style="display: none;">Hi!, <span id="user_name"></span>We have sent a 6 digit pin to the phone number <span id="user_phone"></span></p>
                 <p id="countdown" class="text-danger" style="display: none;">Resend available in <span id="timer">30</span> seconds.</p>
                 <div class="d-flex justify-content-between">
                     <button type="button" id="sendOtpBtn" class="btn btn-secondary">Send OTP</button>
@@ -67,6 +67,8 @@
 
         var name = urlParams.get('name');
         var phone = urlParams.get('phone');
+        document.getElementById('user_name').innerHTML = name;
+        document.getElementById('user_phone').innerHTML = phone;
       }
         let countdownInterval;
 
