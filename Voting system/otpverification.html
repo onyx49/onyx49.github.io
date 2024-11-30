@@ -68,7 +68,7 @@
         var name = urlParams.get('name');
         var phone = urlParams.get('phone');
         document.getElementById('user_name').innerHTML = name;
-        if (phone.includes(',')){
+        if (phone.split(',').length > 1){
           var phone_list = phone.split(',');
           var last3digits = phone_list.map(item => item.slice(-3));
           document.getElementById('user_phone').innerHTML = `ending with +233****${last3digits[0]} and +233****${last3digits[1]}`;
