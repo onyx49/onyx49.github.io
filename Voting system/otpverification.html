@@ -74,7 +74,8 @@
           document.getElementById('user_phone').innerHTML = `ending with +233****${last3digits[0]} and +233****${last3digits[1]}`;
         }
       else{
-        document.getElementById('user_phone').innerHTML = `ending with +233****${phone}`;
+        phone_3 = phone.slice(-3);
+        document.getElementById('user_phone').innerHTML = `ending with +233****${phone_3}`;
       }
       
         let countdownInterval;
