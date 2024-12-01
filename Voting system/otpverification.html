@@ -12,7 +12,7 @@
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="card p-4 shadow" style="width: 400px;">
             <h4 class="text-center mb-4">OTP Verification</h4>
-            <form id="otpForm">
+            <form id="otpForm"> 
                 <div class="mb-3">
                     <label for="otp" class="form-label">Enter OTP</label>
                     <input type="text" id="otp" class="form-control" placeholder="Enter 6-digit OTP" maxlength="6" disabled required>
@@ -21,7 +21,7 @@
                 <p id="countdown" class="text-danger" style="display: none;">Resend available in <span id="timer">30</span> seconds.</p>
                 <div class="d-flex justify-content-between">
                     <button type="button" id="sendOtpBtn" class="btn btn-secondary">Send OTP</button>
-                    <button type="submit" id="verifyOtpBtn" class="btn btn-primary" disabled>Verify</button>
+                    <button type="button" id="verifyOtpBtn" class="btn btn-primary" >Verify</button>
                 </div>
             </form>
         </div>
@@ -79,12 +79,55 @@
       }
       
         let countdownInterval;
+        let validOtp = "";
+        
+        function generateOTP() {
+           var gen_otp = Math.floor(100000 + Math.random() * 900000).toString();
+            validOtp += gen_otp;
+            
+            }
 
         // Handle Send OTP Button Click
         document.getElementById('sendOtpBtn').addEventListener('click', function() {
             // Display the OTP sent message and enable the OTP input
             document.getElementById('sent_otp').style.display = 'block';
             document.getElementById('otp').disabled = false;
+
+            generateOTP();
+            console.log(validOtp)
+            
+            
+
+            const apiUrl = "https://api.smsonlinegh.com/v5/message/sms/send";
+            const params = {
+              key: "dd8e4dc2c1c215ea79fe5ee7a1cb1f88ad5d1dec08881356caf46b8d00b352d0",
+              text: "Hello+%7B%24name%7D. Find your otp %0D%0A%0D%0A %24%7B%24otp%7D",
+              type: "0",
+              sender: "GBCNSP",
+              to: phone
+            };
+    
+            // Construct the full URL with query parameters
+            const url = `${apiUrl}?key=${params.key}&text=${encodeURIComponent(params.text)}&type=${params.type}&sender=${params.sender}&to=${params.to}&values=${name}__@${validOtp}`;
+            console.log(url);
+
+            // Make the API request
+            fetch(url, {
+              method: "GET", // You can use "POST" if the API supports it
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then(data => {
+                console.log("API Response:", data);
+              })
+              .catch(error => { 
+                console.error("Error:", error);
+              });
+
 
             // Start the countdown timer
             startCountdown();
@@ -95,7 +138,7 @@
 
         // Start the countdown timer
         function startCountdown() {
-            let timeLeft = 30;
+            let timeLeft = 60;
             const timerSpan = document.getElementById('timer');
             const countdown = document.getElementById('countdown');
 
@@ -116,46 +159,18 @@
         }
 
         // Handle OTP Verification
-        document.getElementById('otpForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            // Simulate OTP verification
+        document.getElementById('verifyOtpBtn').addEventListener('click', function() {
             const otpInput = document.getElementById('otp').value;
-            const validOtp = "123456"; // Replace with your logic
-
-            const apiUrl = "https://api.smsonlinegh.com/v5/message/sms/send";
-            const params = {
-              key: "dd8e4dc2c1c215ea79fe5ee7a1cb1f88ad5d1dec08881356caf46b8d00b352d0",
-              text: "Hello+%7B%24name%7D. Find your otp %0D%0A%0D%0A %24%7B%24otp%7D",
-              type: "0",
-              sender: "GBCNSP",
-              to: "PHONE_NUMBER"
-            };
-    
-            // Construct the full URL with query parameters
-            const url = `${apiUrl}?key=${params.key}&text=${encodeURIComponent(params.text)}&type=${params.type}&sender=${params.sender}&to=${params.to}`;
-    
-            // Make the API request
-            fetch(url, {
-              method: "GET", // You can use "POST" if the API supports it
-            })
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-              })
-              .then(data => {
-                console.log("API Response:", data);
-              })
-              .catch(error => { 
-                console.error("Error:", error);
-              });
-
-            if (otpInput === validOtp) {
+            console.log(validOtp)
+            if (validOtp.includes(otpInput)) {
                 // Show success modal
                 const successModal = new bootstrap.Modal(document.getElementById('successModal'));
                 successModal.show();
+                validOtp = "";
+                setTimeout(() => {
+                window.location.href = "";
+                }, 2000);
+                
             } else {
                 // Show error modal
                 const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
