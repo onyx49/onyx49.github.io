@@ -1,97 +1,128 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voting Page</title>
+    <!-- <link rel="stylesheet" href="materialize/css/materialize.min.css"> -->
     <link rel="stylesheet" href="style.css">
-
+    
+    
+              
     <script>
-    // Allowed referring URL (exact or partial match)
-    const allowedReferrer = "https://n-xfia6lxisrtv72gyoy46cn4x3f7gcyq3hp36mzy-0lu-script.googleusercontent.com/";
-
-    // Check the document.referrer property
-    if (!document.referrer || !document.referrer.includes(allowedReferrer)) {
-      // Redirect or block access if referrer doesn't match
-      document.body.innerHTML = "<h1>Access Denied</h1><p>You cannot access this page directly.</p>";
-    }
+    // Extract NSS ID
   </script>
 </head>
 <body>
     <div class="container">
-        <h1>Voting Page</h1>
+        <h1>VOTING PAGE</h1>
+        <form action="https://docs.google.com/forms/d/e/1FAIpQLSdEMSNrN5qNgrOr9udSXO09tTDRR4C5uwY3qjYWtVStWLdYkw/viewform?usp=pp_url">
+            <!-- Presidents -->
+            <section class="category" id="presidents">
+                <input type="text" name="entry.2029922935" value="" hidden>
+                <h2>PRESIDENTIAL CANDIDATES</h2> 
+                    <div class="radio-image-container">
+                        <div class="candidate">
+                            <label class="radio-image">
+                            <input type="radio" name="entry.887255675" value="ENOCH ANKOMAH ASARE">
+                            <img src="images/Enoch Ankomah Asare- President.JPG" alt="ENOCH ANKOMAH ASARE">
+                            <p>ENOCH ANKOMAH ASARE</p>
+                        </label>
+                        </div>
+                        <div class="candidate">
+                            <label class="radio-image">
+                            <input type="radio" name="entry.887255675" value="BELINDA NKETIA">
+                            <img src="images/Belinda Nketia2 - President.jpg" alt="BELINDA NKETIA">
+                            <p>BELINDA NKETIA</p>
+                            </label>
+                        </div>
+                        <div class="candidate">
+                            <label class="radio-image">
+                            <input type="radio" name="entry.887255675" value="ASERL MENSAH">
+                            <img src="images/Mensah Aserl - President.jpg" alt="ASERL MENSAH">
+                            <p>ASERL MENSAH</p>
+                            </label>
+                        </div>
+                        <div class="candidate">
+                            <label class="radio-image">
+                            <input type="radio" name="entry.887255675" value="ISAAC FOSU">
+                            <img src="images/Isaac Fosu- President.png" alt="ISAAC FOSU">
+                            <p>ISAAC FOSU</p>
+                            </label>
+                        </div>
+                    </div> 
+            </section>
 
-        <!-- Presidential Candidates -->
-        <section class="category">
-            <h2>Presidential Candidates</h2>
-            <div class="candidates" id="president-candidates">
-                <div class="candidate" onclick="selectCandidate(this, 'president')">
-                    <img src="images/Enoch Ankomah Asare- President.JPG" alt="Candidate 1">
-                    <p>Enoch Ankomah Asare</p>
+                <!-- Vice presidents -->
+            <section class="category">
+                <h2>VICE PRESIDENTIAL CANDIDATES</h2>  
+                    <div class="radio-image-container">
+                        <div class="candidate">
+                            <label class="radio-image">
+                            <input type="radio" name="entry.1756394048" value="EMMANUEL BOAHEN FIIFI">
+                            <img src="images/Emmanuel Boahen Fiifi Boahen Tawiah - Vice Prsident.jpg" alt="EMMANUEL BOAHEN FIIFI">
+                            <p>EMMANUEL BOAHEN FIIFI</p>
+                        </label>
+                        </div>
+                        <div class="candidate">
+                            <label class="radio-image">
+                            <input type="radio" name="entry.1756394048" value="ZANITA SERWAA LIVINGSTON">
+                            <img src="images/Zanita Serwaa Livingston- Vice President BC.jpg" alt="ZANITA SERWAA LIVINGSTON">
+                            <p>ZANITA SERWAA LIVINGSTON</p>
+                            </label>
+                        </div>
                 </div>
-                <div class="candidate" onclick="selectCandidate(this, 'president')">
-                    <img src="images/Belinda Nketia2 - President.jpg" alt="Candidate 2">
-                    <p>Belinda Nketia</p>
+            </section>
+            
+            <!-- General Secretary -->
+            <section class="category">
+                <h2>GENERAL SECRETARY</h2>   
+                    <div class="radio-image-container col s6 m4 l6">
+                        <div class="candidate">
+                            <label class="radio-image">
+                            <input type="radio" name="entry.1071378228" value="REBECCA AMPAH">
+                            <img src="images/Rebecca Ampah_new- General Secretary.JPG" alt="REBECCA AMPAH">
+                            <p>REBECCA AMPAH</p>
+                        </label>
+                        </div>
+                        <div class="candidate">
+                            <label class="radio-image">
+                            <input type="radio" name="entry.1071378228" value="TRACY JULIANA">
+                            <img src="images/Tracy Juliana- General Secretary.jpg" alt="TRACY JULIANA">
+                            <p>TRACY JULIANA</p>
+                            </label>
+                        </div>
                 </div>
-                <div class="candidate" onclick="selectCandidate(this, 'president')">
-                    <img src="images/Mensah Aserl - President.jpg" alt="Candidate 3">
-                    <p>Mensah Aserl</p>
-                </div>
-                <div class="candidate" onclick="selectCandidate(this, 'president')">
-                    <img src="images/Isaac Fosu- President.png" alt="Candidate 4">
-                    <p>Isaac Fosu</p>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Vice Presidents -->
-        <section class="category">
-            <h2>Vice Presidents</h2>
-            <div class="candidates" id="vice-president-candidates">
-                <div class="candidate" onclick="selectCandidate(this, 'vice-president')">
-                    <img src="images/Emmanuel Boahen Fiifi Boahen Tawiah - Vice Prsident.jpg" alt="Candidate 1">
-                    <p>Emmanuel Boahen Fiifi Tawiah</p>
+            <!-- Organiser -->
+            <section class="category">
+                <h2>ORGANISER</h2>   
+                    <div class="radio-image-container">
+                        <div class="candidate">
+                            <label class="radio-image">
+                            <input type="radio" name="entry.21126119" value="EMMANUEL KONDUAH">
+                            <img src="images/Emmanuel Konduah - Organiser.JPG" alt="EMMANUEL KONDUAH">
+                            <p>EMMANUEL KONDUAH</p>
+                        </label>
+                        </div>
+                        <div class="candidate">
+                            <label class="radio-image">
+                            <input type="radio" name="entry.21126119" value="BENJAMIN STILES">
+                            <img src="images/Stiles Benjamin Junior- Organiser.jpg" alt="BENJAMIN STILES">
+                            <p>BENJAMIN STILES</p>
+                            </label>
+                        </div>
                 </div>
-                <div class="candidate" onclick="selectCandidate(this, 'vice-president')">
-                    <img src="images/Zanita Serwaa Livingston- Vice President BC.jpg" alt="Candidate 2">
-                    <p>Zanita Serwaa Livingston</p>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- General Secretary -->
-        <section class="category">
-            <h2>General Secretary</h2>
-            <div class="candidates" id="general-secretary-candidates">
-                <div class="candidate" onclick="selectCandidate(this, 'general-secretary')">
-                    <img src="images/Tracy Juliana- General Secretary.jpg" alt="Candidate 1">
-                    <p>Tracy Juliana</p>
-                </div>
-                <div class="candidate" onclick="selectCandidate(this, 'general-secretary')">
-                    <img src="images/Rebecca Ampah_new- General Secretary.JPG" alt="Candidate 2">
-                    <p>Rebecca Ampah</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Organisers -->
-        <section class="category">
-            <h2>Organisers</h2>
-            <div class="candidates" id="organiser-candidates">
-                <div class="candidate" onclick="selectCandidate(this, 'organiser')">
-                    <img src="images/Stiles Benjamin Junior- Organiser.jpg" alt="Candidate 1">
-                    <p>Stiles Benjamin</p>
-                </div>
-                <div class="candidate" onclick="selectCandidate(this, 'organiser')">
-                    <img src="images/Emmanuel Konduah - Organiser.JPG" alt="Candidate 2">
-                    <p>Emmanuel Konduah</p>
-                </div>
-            </div>
-        </section>
-
-        <button class="submit-btn">Submit Vote</button>
+            <button class="submit-btn">Submit Vote</button>
+        </form>
     </div>
+  
 
     <script src="script.js"></script>
+    <!-- <script src="materialize/js/materialize.min.js"></script> -->
 </body>
 </html>
