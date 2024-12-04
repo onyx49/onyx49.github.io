@@ -1,128 +1,183 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <base target="_blank">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voting Page</title>
-    <!-- <link rel="stylesheet" href="materialize/css/materialize.min.css"> -->
-    <link rel="stylesheet" href="style.css">
-    
-    
-              
-    <script>
-    // Extract NSS ID
-  </script>
+    <title>OTP Verification</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <h1>VOTING PAGE</h1>
-        <form action="https://docs.google.com/forms/d/e/1FAIpQLSdEMSNrN5qNgrOr9udSXO09tTDRR4C5uwY3qjYWtVStWLdYkw/viewform?usp=pp_url">
-            <!-- Presidents -->
-            <section class="category" id="presidents">
-                <input type="text" name="entry.2029922935" value="" hidden>
-                <h2>PRESIDENTIAL CANDIDATES</h2> 
-                    <div class="radio-image-container">
-                        <div class="candidate">
-                            <label class="radio-image">
-                            <input type="radio" name="entry.887255675" value="ENOCH ANKOMAH ASARE">
-                            <img src="images/Enoch Ankomah Asare- President.JPG" alt="ENOCH ANKOMAH ASARE">
-                            <p>ENOCH ANKOMAH ASARE</p>
-                        </label>
-                        </div>
-                        <div class="candidate">
-                            <label class="radio-image">
-                            <input type="radio" name="entry.887255675" value="BELINDA NKETIA">
-                            <img src="images/Belinda Nketia2 - President.jpg" alt="BELINDA NKETIA">
-                            <p>BELINDA NKETIA</p>
-                            </label>
-                        </div>
-                        <div class="candidate">
-                            <label class="radio-image">
-                            <input type="radio" name="entry.887255675" value="ASERL MENSAH">
-                            <img src="images/Mensah Aserl - President.jpg" alt="ASERL MENSAH">
-                            <p>ASERL MENSAH</p>
-                            </label>
-                        </div>
-                        <div class="candidate">
-                            <label class="radio-image">
-                            <input type="radio" name="entry.887255675" value="ISAAC FOSU">
-                            <img src="images/Isaac Fosu- President.png" alt="ISAAC FOSU">
-                            <p>ISAAC FOSU</p>
-                            </label>
-                        </div>
-                    </div> 
-            </section>
-
-                <!-- Vice presidents -->
-            <section class="category">
-                <h2>VICE PRESIDENTIAL CANDIDATES</h2>  
-                    <div class="radio-image-container">
-                        <div class="candidate">
-                            <label class="radio-image">
-                            <input type="radio" name="entry.1756394048" value="EMMANUEL BOAHEN FIIFI">
-                            <img src="images/Emmanuel Boahen Fiifi Boahen Tawiah - Vice Prsident.jpg" alt="EMMANUEL BOAHEN FIIFI">
-                            <p>EMMANUEL BOAHEN FIIFI</p>
-                        </label>
-                        </div>
-                        <div class="candidate">
-                            <label class="radio-image">
-                            <input type="radio" name="entry.1756394048" value="ZANITA SERWAA LIVINGSTON">
-                            <img src="images/Zanita Serwaa Livingston- Vice President BC.jpg" alt="ZANITA SERWAA LIVINGSTON">
-                            <p>ZANITA SERWAA LIVINGSTON</p>
-                            </label>
-                        </div>
+<body class="bg-light">
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="card p-4 shadow" style="width: 400px;">
+            <h4 class="text-center mb-4">OTP Verification</h4>
+            <form id="otpForm"> 
+                <div class="mb-3">
+                    <label for="otp" class="form-label">Enter OTP</label>
+                    <input type="text" id="otp" class="form-control" placeholder="Enter 6-digit OTP" maxlength="6" disabled required>
                 </div>
-            </section>
-            
-            <!-- General Secretary -->
-            <section class="category">
-                <h2>GENERAL SECRETARY</h2>   
-                    <div class="radio-image-container col s6 m4 l6">
-                        <div class="candidate">
-                            <label class="radio-image">
-                            <input type="radio" name="entry.1071378228" value="REBECCA AMPAH">
-                            <img src="images/Rebecca Ampah_new- General Secretary.JPG" alt="REBECCA AMPAH">
-                            <p>REBECCA AMPAH</p>
-                        </label>
-                        </div>
-                        <div class="candidate">
-                            <label class="radio-image">
-                            <input type="radio" name="entry.1071378228" value="TRACY JULIANA">
-                            <img src="images/Tracy Juliana- General Secretary.jpg" alt="TRACY JULIANA">
-                            <p>TRACY JULIANA</p>
-                            </label>
-                        </div>
+                <p id="sent_otp" class="text-success" style="display: none;">Hi! <span id="user_name"></span>, a 6 digit pin has been sent to your phone number <span id="user_phone"></span></p>
+                <p id="countdown" class="text-danger" style="display: none;">Resend available in <span id="timer">30</span> seconds.</p>
+                <div class="d-flex justify-content-between">
+                    <button type="button" id="sendOtpBtn" class="btn btn-secondary">Send OTP</button>
+                    <button type="button" id="verifyOtpBtn" class="btn btn-primary" >Verify</button>
                 </div>
-            </section>
-
-            <!-- Organiser -->
-            <section class="category">
-                <h2>ORGANISER</h2>   
-                    <div class="radio-image-container">
-                        <div class="candidate">
-                            <label class="radio-image">
-                            <input type="radio" name="entry.21126119" value="EMMANUEL KONDUAH">
-                            <img src="images/Emmanuel Konduah - Organiser.JPG" alt="EMMANUEL KONDUAH">
-                            <p>EMMANUEL KONDUAH</p>
-                        </label>
-                        </div>
-                        <div class="candidate">
-                            <label class="radio-image">
-                            <input type="radio" name="entry.21126119" value="BENJAMIN STILES">
-                            <img src="images/Stiles Benjamin Junior- Organiser.jpg" alt="BENJAMIN STILES">
-                            <p>BENJAMIN STILES</p>
-                            </label>
-                        </div>
-                </div>
-            </section>
-
-            <button class="submit-btn">Submit Vote</button>
-        </form>
+            </form>
+        </div>
     </div>
-  
 
-    <script src="script.js"></script>
-    <!-- <script src="materialize/js/materialize.min.js"></script> -->
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    OTP verified successfully!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Invalid OTP. Please try again.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+      
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        var name = urlParams.get('name');
+        var phone = urlParams.get('phone');
+        var nsid = urlParmas.get('id')
+        document.getElementById('user_name').innerHTML = name;
+        if (phone.split(',').length > 1){
+          var phone_list = phone.split(',');
+          var last3digits = phone_list.map(item => item.slice(-3));
+          document.getElementById('user_phone').innerHTML = `ending with +233****${last3digits[0]} and +233****${last3digits[1]}`;
+        }
+      else{
+        phone_3 = phone.slice(-3);
+        document.getElementById('user_phone').innerHTML = `ending with +233****${phone_3}`;
+      }
+      
+        let countdownInterval;
+        let validOtp = "";
+        
+        function generateOTP() {
+           var gen_otp = Math.floor(100000 + Math.random() * 900000).toString();
+            validOtp = gen_otp;
+            
+            }
+
+        // Handle Send OTP Button Click
+        document.getElementById('sendOtpBtn').addEventListener('click', function() {
+            // Display the OTP sent message and enable the OTP input
+            document.getElementById('sent_otp').style.display = 'block';
+            document.getElementById('otp').disabled = false;
+
+            generateOTP();
+            console.log(validOtp)
+            
+            
+
+            const apiUrl = "https://api.smsonlinegh.com/v5/message/sms/send";
+            const params = {
+              key: "dd8e4dc2c1c215ea79fe5ee7a1cb1f88ad5d1dec08881356caf46b8d00b352d0",
+              text: "Hello+%7B%24name%7D. Find your otp %0D%0A%0D%0A %24%7B%24otp%7D",
+              type: "0",
+              sender: "GBCNSP",
+              to: phone
+            };
+    
+            // Construct the full URL with query parameters
+            const url = `${apiUrl}?key=${params.key}&text=${encodeURIComponent(params.text)}&type=${params.type}&sender=${params.sender}&to=${params.to}&values=${name}__@${validOtp}`;
+            console.log(url);
+
+            // Make the API request
+            fetch(url, {
+              method: "GET", // You can use "POST" if the API supports it
+            })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then(data => {
+                console.log("API Response:", data);
+              })
+              .catch(error => { 
+                console.error("Error:", error);
+              });
+
+
+            // Start the countdown timer
+            startCountdown();
+
+            // Disable Send OTP button during countdown
+            document.getElementById('sendOtpBtn').disabled = true;
+        });
+
+        // Start the countdown timer
+        function startCountdown() {
+            let timeLeft = 60;
+            const timerSpan = document.getElementById('timer');
+            const countdown = document.getElementById('countdown');
+
+            // Show the countdown text
+            countdown.style.display = 'block';
+
+            // Update the countdown every second
+            countdownInterval = setInterval(() => {
+                timeLeft--;
+                timerSpan.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('sendOtpBtn').disabled = false; // Enable Send OTP button
+                    countdown.style.display = 'none'; // Hide countdown
+                }
+            }, 1000);
+        }
+
+        // Handle OTP Verification
+        document.getElementById('verifyOtpBtn').addEventListener('click', function() {
+            const otpInput = document.getElementById('otp').value;
+            
+            if (validOtp.includes(otpInput)) {
+                // Show success modal
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+                validOtp = "";
+                setTimeout(() => {
+                window.location.href = "";
+                }, 2000);
+                
+            } else {
+                // Show error modal
+                const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                errorModal.show();
+            }
+        });
+    </script>
 </body>
 </html>
