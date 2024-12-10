@@ -1,78 +1,194 @@
-function submitVote(candidate) {
-    const formUrl = "https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse"; // Replace YOUR_FORM_ID
-    const formData = new FormData();
-    const entryId = "entry.YOUR_ENTRY_ID"; // Replace with the Google Form's entry ID for the question.
-  
-    formData.append(entryId, candidate);
-  
-    fetch(formUrl, {
-      method: "POST",
-      mode: "no-cors",
-      body: formData,
-    })
-      .then(() => {
-        alert(`Thank you for voting for ${candidate}!`);
-      })
-      .catch((error) => {
-        console.error("Error submitting vote:", error);
-        alert("There was an error submitting your vote. Please try again.");
-      });
+
+// Function to get the value of a URL parameter
+function getURLParameter() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("id"); // Get the value of the specified parameter
+}
+
+function president(){
+  const selection = document.getElementsByName('entry.887255675');
+
+  for (let i = 0; i < selection.length; i++) {
+    if (selection[i].checked) {
+        return selection[i].value 
+    }
+  }
+  return "";
+}
+
+function vice_pres(){
+  const selection = document.getElementsByName('entry.1756394048');
+
+  for (let i = 0; i < selection.length; i++) {
+    if (selection[i].checked) {
+        return selection[i].value 
+    }
+  }
+  return "";
+}
+
+function gen_sec(){
+  const selection = document.getElementsByName('entry.1071378228');
+
+  for (let i = 0; i < selection.length; i++) {
+    if (selection[i].checked) {
+        return selection[i].value 
+    }
+  }
+  return "";
+}
+
+function organiser(){
+  const selection = document.getElementsByName('entry.21126119');
+  for (let i = 0; i < selection.length; i++) {
+    if (selection[i].checked) {
+        return selection[i].value 
+    }
   }
 
-// Function to handle image selection and deselection
-function selectCandidate(element, role) {
-    // Check if the clicked candidate is already selected
-    if (element.classList.contains('selected')) {
-        // Deselect the image
-        element.classList.remove('selected');
-        return; // Exit the function
-    }
-
-    // Otherwise, deselect all candidates in this category
-    const candidates = document.querySelectorAll(`#${role}-candidates .candidate`);
-    candidates.forEach(candidate => candidate.classList.remove('selected'));
-
-    // Select the clicked candidate
-    element.classList.add('selected');
+  return "";
+  
 }
 
+const checkmark = document.getElementById('checkmark');
+const wrongmark = socument.getElementById('wrong-checkmark');
 
-// Function to handle image selection and deselection
-function selectCandidate(element, role) {
-    // Get all candidates in the specific category
-    const candidates = document.querySelectorAll(`#${role}-candidates .candidate`);
 
-    // Check if the clicked element is already selected
-    const isSelected = element.classList.contains('selected');
+function submitVote() {
+    const formUrl = `https://docs.google.com/forms/u/0/d/e/1FAIpQLSdEMSNrN5qNgrOr9udSXO09tTDRR4C5uwY3qjYWtVStWLdYkw/formResponse?entry.2029922935=${getURLParameter()}&entry.887255675=${president()}&entry.1756394048=${vice_pres()}&entry.1071378228=${gen_sec()}&entry.21126119=${organiser()}`; // Replace YOUR_FORM_ID
+    const successModal = new bootstrap.Modal(document.getElementById('successmode'));
+    const errorModal = new bootstrap.Modal(document.getElementById('errormode'));
+    const spin = document.getElementById('spin_btn');
+    const login_btn = document.getElementById('submit_btn');
 
-    // Remove 'selected' class from all candidates in the category
-    candidates.forEach(candidate => candidate.classList.remove('selected'));
 
-    // If the clicked element was not already selected, select it
-    if (!isSelected) {
-        element.classList.add('selected');
+    const userID = getURLParameter();
+    const url = window.location.href;
+   
+
+
+    if (president() === "" || vice_pres() === "" || gen_sec() === "" || organiser() === "" ){
+      alert("Select at least one candidate from each section");
     }
-}
 
-// Function to validate that a candidate has been selected in every category
-function validateSelection() {
-    // List of all category IDs
-    const categories = ['president', 'vice-president', 'general-secretary', 'organiser'];
+    else if (userID === null || userID === ""){
     
-    // Check each category for a selected candidate
-    for (const category of categories) {
-        const selected = document.querySelector(`#${category}-candidates .candidate.selected`);
-        if (!selected) {
-            alert(`Please select a candidate for ${category.replace('_', ' ')}.`);
-            return false;
-        }
+      errorModal.show();
+      wrongmark.seek(0);
+      wrongmark.play();
     }
     
-    // If all categories have selections, allow submission
-    alert('Vote submitted successfully!');
-    return true;
-}
+    else
+    {
 
-// Attach the validateSelection function to the Submit button
-document.querySelector('.submit-btn').addEventListener('click', validateSelection);
+      spin.style.display = "block";
+      login_btn.style.display = "none";
+
+      
+
+      setTimeout (() => { fetch(formUrl, {
+        method: "GET"
+      })
+        spin.style.display = "none";
+        login_btn.style.display = "block";
+
+          successModal.show();
+          checkmark.seek(0);
+          checkmark.play(); 
+
+    }, 2000)
+
+    setTimeout(() => {
+      window.location.replace("free.html");
+    }, 4000);
+
+    }
+  
+  }
+
+  
+//   let db;
+
+//   // Initialize IndexedDB
+// const initDB = () => {
+//   const request = indexedDB.open('VotingDB', 1);
+
+//   request.onupgradeneeded = (event) => {
+//       db = event.target.result;
+//       if (!db.objectStoreNames.contains('Votes')) {
+//           db.createObjectStore('Votes', { keyPath: 'userID' });
+//       }
+//   };
+
+//   request.onsuccess = (event) => {
+//       db = event.target.result;
+//       console.log('Database initialized successfully.');
+//   };
+
+//   request.onerror = (event) => {
+//       console.error('Error initializing database:', event.target.errorCode);
+//   };
+// };
+
+// // Check if the user ID exists in the database
+// const checkVote = (userID) => {
+//   return new Promise((resolve, reject) => {
+//       const transaction = db.transaction(['Votes'], 'readonly');
+//       const store = transaction.objectStore('Votes');
+//       const request = store.get(userID);
+
+//       request.onsuccess = () => {
+//           resolve(request.result ? true : false);
+//       };
+
+//       request.onerror = () => {
+//           reject('Error checking the database.');
+//       };
+//   });
+// };
+
+//   // Add a new vote to the database
+//   const addVote = (userID) => {
+//       return new Promise((resolve, reject) => {
+//           const transaction = db.transaction(['Votes'], 'readwrite');
+//           const store = transaction.objectStore('Votes');
+//           const request = store.add({ userID });
+
+//           request.onsuccess = () => {
+//               resolve('Vote successfully recorded.');
+//           };
+
+//           request.onerror = () => {
+//               reject('Error adding vote to the database.');
+//           };
+//       });
+//   };
+
+//         // Handle the voting process
+//         document.getElementById('vote-button').addEventListener('click', async () => {
+//             const userID = getURLParameter();
+
+//             try {
+//                 const hasVoted = await checkVote(userID);
+
+//                 if (hasVoted) {
+//                     message.textContent = `User ID "${userID}" has already voted.`;
+//                 } else {
+//                     await addVote(userID);
+//                     message.textContent = `Vote recorded for User ID "${userID}". Thank you!`;
+//                 }
+//             } catch (error) {
+//                 console.error(error);
+//                 message.textContent = 'An error occurred. Please try again.';
+//             }
+//         });
+
+//         // Initialize the database
+//         initDB();
+
+
+
+
+
+
 
