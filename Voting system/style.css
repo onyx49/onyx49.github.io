@@ -195,6 +195,13 @@ margin-bottom: 20px;
     width: fit-content;
     font-size: medium;
   }
+
+  #spin_btn{
+    width: fit-content;
+    font-size: medium;
+    margin-left: 120px;
+    height: 60px;
+  }
   
 }
 
