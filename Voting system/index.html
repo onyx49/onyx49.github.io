@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
     <title>Ballot Sheet</title>
     <!-- <link rel="stylesheet" href="materialize/css/materialize.min.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -17,10 +17,10 @@
         <h1>BALLOT SHEET</h1>
         <form>
             <!-- Presidents -->
-            <section class="category" id="presidents">
+            <section class="category">
                 <!-- <input  id="nssId" type="text" name="entry.2029922935" value="nssid1234567"> -->
                 <h2>PRESIDENTIAL CANDIDATES</h2> 
-                    <div class="radio-image-container">
+                    <div class="radio-image-container" id="pres_radio">
                         <div class="candidate">
                             <label class="radio-image">
                             <input id="president" type="radio" name="entry.887255675" value="ENOCH ANKOMAH ASARE">
@@ -36,14 +36,14 @@
                             </label>
                         </div>
                         <div class="candidate">
-                            <label class="radio-image">
+                            <label class="radio-image" id="img_2">
                             <input id="president" type="radio" name="entry.887255675" value="ASERL MENSAH">
                             <img src="images/Mensah Aserl - President.jpg" alt="ASERL MENSAH">
                             <p>ASERL MENSAH</p>
                             </label>
                         </div>
                         <div class="candidate">
-                            <label class="radio-image">
+                            <label class="radio-image" id="img_3">
                             <input id="president" type="radio" name="entry.887255675" value="ISAAC FOSU">
                             <img src="images/Isaac Fosu- President.png" alt="ISAAC FOSU">
                             <p>ISAAC FOSU</p>
@@ -123,8 +123,8 @@
             </button>
         </form>
     </div>
-
-    <div class="modal fade" id="successmode" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <!-- PC MODAL -->
+    <div class="modal fade" id="successmode_PC" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <dotlottie-player 
@@ -140,21 +140,55 @@
             </div>  
             </div>
 
-    
-    <div class="modal fade" id="errormode" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <dotlottie-player 
-                id="wrong-checkmark" 
-                src="https://lottie.host/14673b40-fb31-4809-b5b8-72b1237ba585/g4Ky8jdkoh.lottie"
-                background="transparent" speed="1" style="width: 150px; height: 150px; margin: 0 auto " 
-                autoplay></dotlottie-player>
+            <div class="modal fade" id="errormode_PC" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <dotlottie-player 
+                        id="wrong-checkmark" 
+                        src="https://lottie.host/14673b40-fb31-4809-b5b8-72b1237ba585/g4Ky8jdkoh.lottie"
+                        background="transparent" speed="1" style="width: 150px; height: 150px; margin: 0 auto " 
+                        autoplay></dotlottie-player>
+        
+                        <h2>Sorry! Something went wrong</h2>
+                        <p style="text-align: center;">It's either you have already voted or not a registered voter.</p>
+                        <!-- <button class="close-btn" id="close-modal">Close</button> -->
+                </div>
+                    </div>  
+                    </div>
+            
+            <!-- MOBILE MODAL -->
+            <div class="modal fade" id="successmode" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <dotlottie-player 
+                        id="checkmark_mob" 
+                        src="https://lottie.host/811d14b6-d728-4e26-b26b-1371f1aca3df/RIGLmc9wE1.lottie"
+                        background="transparent" speed="1" style="width: 70px; height: 70px; margin: 0 auto " 
+                        autoplay></dotlottie-player>
+        
+                        <h2>Thank You for Voting!</h2>
+                        <p style="text-align: center;">Your vote has been successfully recorded.</p>
+                        <!-- <button class="close-btn" id="close-modal">Close</button> -->
+                </div>
+                    </div>   
+                    </div>
 
-                <h2>Sorry! Something went wrong</h2>
-                <p style="text-align: center;">It's either you have already voted or not a registered voter.</p>
-                <!-- <button class="close-btn" id="close-modal">Close</button> -->
-        </div>
-            </div>  
+    
+                    <div class="modal fade" id="errormode" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm" >
+                            <div class="modal-content">
+                                <dotlottie-player 
+                                id="wrong-checkmark" 
+                                src="https://lottie.host/14673b40-fb31-4809-b5b8-72b1237ba585/g4Ky8jdkoh.lottie"
+                                background="transparent" speed="1" style="width: 70px; height: 70px; margin: 0 auto " 
+                                autoplay></dotlottie-player>
+                
+                                <h2>Sorry! Something went wrong</h2>
+                                <p style="text-align: center;">It's either you have already voted or not a registered voter.</p>
+                                <!-- <button class="close-btn" id="close-modal">Close</button> -->
+                        </div>
+                            </div>   
+                            </div>  
             </div>
     
 
