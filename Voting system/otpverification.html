@@ -63,11 +63,15 @@
 
       
         const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
+        var urlParams = new URLSearchParams(queryString);
+        const dec_urlParams = (decodeURIComponent(urlParams));
 
-        var name = urlParams.get('name');
-        var phone = urlParams.get('phone');
-        var nsid = urlParmas.get('id')
+        const dec_url = decryptParam("afOQWEOFHOH123fwesdsdfperoJF89FDijfeiPEFjefpjvdsf==", dec_urlParams, 14);
+        let new_params = new URLSearchParams(dec_url);
+
+        
+        var name = new_params.get('name');
+        var phone = new_params.get('phone');
         document.getElementById('user_name').innerHTML = name;
         if (phone.split(',').length > 1){
           var phone_list = phone.split(',');
@@ -102,7 +106,7 @@
             const apiUrl = "https://api.smsonlinegh.com/v5/message/sms/send";
             const params = {
               key: "dd8e4dc2c1c215ea79fe5ee7a1cb1f88ad5d1dec08881356caf46b8d00b352d0",
-              text: "Hello+%7B%24name%7D. Find your otp %0D%0A%0D%0A %24%7B%24otp%7D",
+              text: "Hello {$name}. Find your otp \r\n {$otp}",
               type: "0",
               sender: "GBCNSP",
               to: phone
@@ -169,7 +173,7 @@
                 successModal.show();
                 validOtp = "";
                 setTimeout(() => {
-                window.location.href = "";
+                window.open("free.html");
                 }, 2000);
                 
             } else {
@@ -178,6 +182,69 @@
                 errorModal.show();
             }
         });
+
+
+
+        function stringToHex(str) {
+        return Array.from(str)
+            .map(char => char.charCodeAt(0).toString(16).padStart(2, '0')) // Convert each character to Hex
+            .join('');
+        }
+
+        // Function to convert Hex back to a string
+        function hexToString(hex) {
+            return hex.match(/.{1,2}/g) // Match pairs of Hex digits
+                .map(byte => String.fromCharCode(parseInt(byte, 16))) // Convert Hex pairs to characters
+                .join('');
+        }
+
+        // Caesar Cipher: Encrypt by shifting characters
+        function caesarCipherEncrypt(input, shift) {
+            return input
+                .split('')
+                .map(char => String.fromCharCode((char.charCodeAt(0) + shift) % 256)) // Shift each character
+                .join('');
+        }
+
+        // Caesar Cipher: Decrypt by reversing the shift
+        function caesarCipherDecrypt(input, shift) {
+            return input
+                .split('')
+                .map(char => String.fromCharCode((char.charCodeAt(0) - shift + 256) % 256)) // Reverse the shift
+                .join('');
+        }
+
+        // Encryption Function
+        function encryptParam(secretKey, value, shift) {
+            const keyHex = stringToHex(secretKey); // Step 1: Convert secret key to Hex
+            const valueHex = stringToHex(value); // Step 2: Convert value to Hex
+            const combinedHex = keyHex + valueHex; // Step 3: Concatenate Hex values
+            const shiftedHex = caesarCipherEncrypt(combinedHex, shift); // Step 4: Apply Caesar cipher
+            return btoa(shiftedHex); // Step 5: Encode shifted Hex to Base64
+        }
+
+        // Decryption Function
+        function decryptParam(secretKey, encryptedValue, shift) {
+            // const combinedHexShifted = atob(encryptedValue); Step 1: Decode Base64 to shifted Hex
+            const combinedHex = caesarCipherDecrypt(encryptedValue, shift); // Step 2: Reverse Caesar cipher
+            const keyHex = stringToHex(secretKey); // Step 3: Convert secret key to Hex
+            const valueHex = combinedHex.replace(keyHex, ""); // Step 4: Remove key's Hex part
+            return hexToString(valueHex); // Step 5: Convert value's Hex back to original string
+        }
+
+        // Example Usage
+        // const secretKey = "afOQWEOFHOH123fwesdsdfperoJF89FDijfeiPEFjefpjvdsf==";
+        // const paramValue = "JohnDoe";
+        // const caesarShift = 14; // Number of positions to shift in Caesar cipher
+
+        // // Encrypt the parameter value
+        // const encryptedValue = encryptParam(secretKey, paramValue, caesarShift);
+        // console.log("Encrypted Value:", encryptedValue);
+
+        // Decrypt the parameter value
+        // const decryptedValue = decryptParam(secretKey, encryptedValue, caesarShift);
+        // console.log("Decrypted Value:", decryptedValue);
+
     </script>
 </body>
 </html>
