@@ -1,8 +1,14 @@
 
 // Function to get the value of a URL parameter
 function getURLParameter() {
+  
   const params = new URLSearchParams(window.location.search);
-  return params.get("id"); // Get the value of the specified parameter
+  let de_uri = decodeURIComponent(params);
+  const dec_params = decryptParam("afOQWEOFHOH123fwesdsdfperoJF89FDijfeiPEFjefpjvdsf==", de_uri, 14)
+  let newdec_params = new URLSearchParams(dec_params);
+  const id = newdec_params.get('id');
+
+  return id; // Get the value of the specified parameter
 }
 
 function president(){
@@ -72,7 +78,9 @@ function submitVote() {
 
 
     const userID = getURLParameter();
-    const url = window.location.href;
+    console.log(getURLParameter());
+    // 
+    
    
 
 
@@ -105,14 +113,46 @@ function submitVote() {
     }, 2000)
 
     setTimeout(() => {
-      window.location.replace("free.html");
+      location.reload();
     }, 4000);
 
     }
   
   }
 
+  function stringToHex(str) {
+    return Array.from(str)
+        .map(char => char.charCodeAt(0).toString(16).padStart(2, '0')) // Convert each character to Hex
+        .join('');
+    }
+
+    // Function to convert Hex back to a string
+    function hexToString(hex) {
+        return hex.match(/.{1,2}/g) // Match pairs of Hex digits
+            .map(byte => String.fromCharCode(parseInt(byte, 16))) // Convert Hex pairs to characters
+            .join('');
+    }
+
+
+    // Caesar Cipher: Decrypt by reversing the shift
+    function caesarCipherDecrypt(input, shift) {
+        return input
+            .split('')
+            .map(char => String.fromCharCode((char.charCodeAt(0) - shift + 256) % 256)) // Reverse the shift
+            .join('');
+    }
+
+
+  function decryptParam(secretKey, encryptedValue, shift) {
+    // const combinedHexShifted = atob(encryptedValue); Step 1: Decode Base64 to shifted Hex
+    const combinedHex = caesarCipherDecrypt(encryptedValue, shift); // Step 2: Reverse Caesar cipher
+    const keyHex = stringToHex(secretKey); // Step 3: Convert secret key to Hex
+    const valueHex = combinedHex.replace(keyHex, ""); // Step 4: Remove key's Hex part
+    return hexToString(valueHex); // Step 5: Convert value's Hex back to original string
+}
+
   
+
 
 
 
