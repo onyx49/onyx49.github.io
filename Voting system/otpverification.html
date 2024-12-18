@@ -7,6 +7,21 @@
     <title>OTP Verification</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    .spinner-modal .modal-content {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+      }
+      .spinner-modal .modal-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      
+      </style>
+    
 </head>
 <body class="bg-light">
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
@@ -18,7 +33,7 @@
                     <input type="text" id="otp" class="form-control" placeholder="Enter 6-digit OTP" maxlength="6" disabled required>
                 </div>
                 <p id="sent_otp" class="text-success" style="display: none;">Hi! <span id="user_name"></span>, a 6 digit pin has been sent to your phone number <span id="user_phone"></span></p>
-                <p id="countdown" class="text-danger" style="display: none;">Resend available in <span id="timer">30</span> seconds.</p>
+                <p id="countdown" class="text-danger" style="display: none;">Resend available in <span id="timer">60</span> seconds.</p>
                 <div class="d-flex justify-content-between">
                     <button type="button" id="sendOtpBtn" class="btn btn-secondary">Send OTP</button>
                     <button type="button" id="verifyOtpBtn" class="btn btn-primary" >Verify</button>
@@ -50,12 +65,25 @@
                     <h5 class="modal-title" id="errorModalLabel">Error</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="error_message">
                     Invalid OTP. Please try again.
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Spinner Modal -->
+    <div class="modal fade spinner-modal" id="spinnerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="spinner-grow text-dark" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -69,10 +97,15 @@
         const dec_url = decryptParam("afOQWEOFHOH123fwesdsdfperoJF89FDijfeiPEFjefpjvdsf==", dec_urlParams, 14);
         let new_params = new URLSearchParams(dec_url);
 
+        //values for parameter
+        let url_value;
         
         var name = new_params.get('name');
         var phone = new_params.get('phone');
+        var nssid = new_params.get('id');
+
         document.getElementById('user_name').innerHTML = name;
+         
         if (phone.split(',').length > 1){
           var phone_list = phone.split(',');
           var last3digits = phone_list.map(item => item.slice(-3));
@@ -84,7 +117,7 @@
       }
       
         let countdownInterval;
-        let validOtp = "";
+        let validOtp;
         
         function generateOTP() {
            var gen_otp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -101,19 +134,25 @@
             generateOTP();
             console.log(validOtp)
             
-            
+            let url_value;
+            if (phone.split(',').length > 1){
+              url_value = `${name}__@${validOtp}__#${name}__@${validOtp}`;
+            } else {
+              url_value = `${name}__@${validOtp}`;
+            }
 
             const apiUrl = "https://api.smsonlinegh.com/v5/message/sms/send";
             const params = {
-              key: "dd8e4dc2c1c215ea79fe5ee7a1cb1f88ad5d1dec08881356caf46b8d00b352d0",
+              // key: "dd8e4dc2c1c215ea79fe5ee7a1cb1f88ad5d1dec08881356caf46b8d00b352d0",
               text: "Hello {$name}. Find your otp \r\n {$otp}",
               type: "0",
               sender: "GBCNSP",
-              to: phone
+              to: phone,
+              values: url_value
             };
     
             // Construct the full URL with query parameters
-            const url = `${apiUrl}?key=${params.key}&text=${encodeURIComponent(params.text)}&type=${params.type}&sender=${params.sender}&to=${params.to}&values=${name}__@${validOtp}`;
+            const url = `${apiUrl}?key=${params.key}&text=${encodeURIComponent(params.text)}&type=${params.type}&sender=${params.sender}&to=${params.to}&values=${encodeURIComponent(params.values)}`;
             console.log(url);
 
             // Make the API request
@@ -166,22 +205,45 @@
         // Handle OTP Verification
         document.getElementById('verifyOtpBtn').addEventListener('click', function() {
             const otpInput = document.getElementById('otp').value;
-            
-            if (validOtp.includes(otpInput)) {
-                // Show success modal
-                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            const error_mesage = document.getElementById('error_message');
+            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            const spinnerModal = new bootstrap.Modal(document.getElementById('spinnerModal'), {
+                    backdrop: 'static', // Prevent closing by clicking outside
+                    keyboard: false     // Disable closing with ESC key
+    });
+    
+            var nssid_param = `id=${nssid}`
+            var enc_nssid = encodeURIComponent(encryptParam("afOQWEOFHOH123fwesdsdfperoJF89FDijfeiPEFjefpjvdsf==", nssid_param, 14))
+
+            if (otpInput === validOtp){
                 successModal.show();
                 validOtp = "";
                 setTimeout(() => {
-                window.location.href = "https://onyx49.github.io/Voting system/index.html";
+                  successModal.hide();
+                  spinnerModal.show();
+                  setTimeout(() => {
+                  window.location.href = `votingpage.html?${enc_nssid}`;
+                      }, 2000);  
                 }, 1000);
+
                 
-            } else {
+
+            }
+            
+            else if (!otpInput){
+              error_mesage.innerHTML = "Make sure you click \"send OTP\" to get otp";
+              errorModal.show();
+            }
+                
+            else {
                 // Show error modal
-                const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                error_mesage.innerHTML = "Invalid OTP. Please try again.";
                 errorModal.show();
             }
         });
+
+
 
 
 
@@ -220,7 +282,7 @@
             const valueHex = stringToHex(value); // Step 2: Convert value to Hex
             const combinedHex = keyHex + valueHex; // Step 3: Concatenate Hex values
             const shiftedHex = caesarCipherEncrypt(combinedHex, shift); // Step 4: Apply Caesar cipher
-            return btoa(shiftedHex); // Step 5: Encode shifted Hex to Base64
+            return shiftedHex; 
         }
 
         // Decryption Function
@@ -232,18 +294,7 @@
             return hexToString(valueHex); // Step 5: Convert value's Hex back to original string
         }
 
-        // Example Usage
-        // const secretKey = "afOQWEOFHOH123fwesdsdfperoJF89FDijfeiPEFjefpjvdsf==";
-        // const paramValue = "JohnDoe";
-        // const caesarShift = 14; // Number of positions to shift in Caesar cipher
-
-        // // Encrypt the parameter value
-        // const encryptedValue = encryptParam(secretKey, paramValue, caesarShift);
-        // console.log("Encrypted Value:", encryptedValue);
-
-        // Decrypt the parameter value
-        // const decryptedValue = decryptParam(secretKey, encryptedValue, caesarShift);
-        // console.log("Decrypted Value:", decryptedValue);
+       
 
     </script>
 </body>
