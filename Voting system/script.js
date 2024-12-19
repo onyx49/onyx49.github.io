@@ -110,7 +110,7 @@ function submitVote() {
     }, 2000)
 
     setTimeout(() => {
-      window.location.reload();
+      window.history.back();
     }, 4000);
 
     }
