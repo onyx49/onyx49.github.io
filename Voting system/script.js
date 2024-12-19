@@ -1,15 +1,37 @@
 
 // Function to get the value of a URL parameter
-function getURLParameter() {
-  
-  const params = new URLSearchParams(window.location.search);
-  let de_uri = decodeURIComponent(params);
-  const dec_params = decryptParam("afOQWEOFHOH123fwesdsdfperoJF89FDijfeiPEFjefpjvdsf==", de_uri, 14)
-  let newdec_params = new URLSearchParams(dec_params);
-  const id = newdec_params.get('id');
+const screenWidth = window.innerWidth;
+    const success_modID = screenWidth <= 610 ? 'successmode' : 'successmode_PC';
+    const error_modID = screenWidth <= 610 ? 'errormode' : 'errormode_PC';
+   
+    
+    
+    const successModal = new bootstrap.Modal(document.getElementById(success_modID));
+    const errorModal = new bootstrap.Modal(document.getElementById(error_modID));
+    const spin = document.getElementById('spin_btn');
+    const login_btn = document.getElementById('submit_btn');
+   
 
-  return id; // Get the value of the specified parameter
-}
+
+
+function getURLParameter() {
+  try{
+    const params = new URLSearchParams(window.location.search);
+    let de_uri = decodeURIComponent(params);
+    var dec_params = decryptParam("afOQWEOFHOH123fwesdsdfperoJF89FDijfeiPEFjefpjvdsf==", de_uri, 14)
+    let newdec_params = new URLSearchParams(dec_params);
+    const id = newdec_params.get('id');
+      return id;
+    
+  } catch (error){
+      errorModal.show();
+  }
+    
+  }
+     
+
+   
+
 
 function president(){
   const selection = document.getElementsByName('entry.887255675');
@@ -62,23 +84,14 @@ function organiser(){
 function submitVote() {
     const formUrl = `https://docs.google.com/forms/u/0/d/e/1FAIpQLSdEMSNrN5qNgrOr9udSXO09tTDRR4C5uwY3qjYWtVStWLdYkw/formResponse?entry.2029922935=${getURLParameter()}&entry.887255675=${president()}&entry.1756394048=${vice_pres()}&entry.1071378228=${gen_sec()}&entry.21126119=${organiser()}`; // Replace YOUR_FORM_ID
     
-    const screenWidth = window.innerWidth;
-    const success_modID = screenWidth <= 610 ? 'successmode' : 'successmode_PC';
-    const error_modID = screenWidth <= 610 ? 'errormode' : 'errormode_PC';
-   
     
-    
-    const successModal = new bootstrap.Modal(document.getElementById(success_modID));
-    const errorModal = new bootstrap.Modal(document.getElementById(error_modID));
-    const spin = document.getElementById('spin_btn');
-    const login_btn = document.getElementById('submit_btn');
 
    
     
 
 
     const userID = getURLParameter();
-    console.log(getURLParameter());
+    
     // 
     
    
@@ -88,10 +101,8 @@ function submitVote() {
       alert("Select at least one candidate from each section");
     }
 
-    else if (userID === null || userID === ""){
-    
+    else if (userID === null || userID === "" || userID === undefined || !userID){
       errorModal.show();
-      
     }
     
     else
@@ -107,6 +118,8 @@ function submitVote() {
       })
         spin.style.display = "none";
         login_btn.style.display = "block";
+
+         
 
           successModal.show();
 
@@ -150,9 +163,6 @@ function submitVote() {
     const valueHex = combinedHex.replace(keyHex, ""); // Step 4: Remove key's Hex part
     return hexToString(valueHex); // Step 5: Convert value's Hex back to original string
 }
-
-  
-
 
 
 
