@@ -6,7 +6,10 @@ const screenWidth = window.innerWidth;
    
     
     
-    const successModal = new bootstrap.Modal(document.getElementById(success_modID));
+    const successModal = new bootstrap.Modal(document.getElementById(success_modID),{
+                    backdrop: 'static', // Prevent closing by clicking outside
+                    keyboard: false     // Disable closing with ESC key
+    });
     const errorModal = new bootstrap.Modal(document.getElementById(error_modID));
     const spin = document.getElementById('spin_btn');
     const login_btn = document.getElementById('submit_btn');
