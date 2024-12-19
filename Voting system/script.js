@@ -29,10 +29,6 @@ function getURLParameter() {
     
   }
      
-
-   
-
-
 function president(){
   const selection = document.getElementsByName('entry.887255675');
 
@@ -79,23 +75,11 @@ function organiser(){
 }
 
 
-
-
 function submitVote() {
     const formUrl = `https://docs.google.com/forms/u/0/d/e/1FAIpQLSdEMSNrN5qNgrOr9udSXO09tTDRR4C5uwY3qjYWtVStWLdYkw/formResponse?entry.2029922935=${getURLParameter()}&entry.887255675=${president()}&entry.1756394048=${vice_pres()}&entry.1071378228=${gen_sec()}&entry.21126119=${organiser()}`; // Replace YOUR_FORM_ID
-    
-    
-
-   
-    
 
 
     const userID = getURLParameter();
-    
-    // 
-    
-   
-
 
     if (president() === "" || vice_pres() === "" || gen_sec() === "" || organiser() === "" ){
       alert("Select at least one candidate from each section");
