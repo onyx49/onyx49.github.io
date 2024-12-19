@@ -111,6 +111,7 @@ function submitVote() {
 
     setTimeout(() => {
       window.history.go(-2);
+        event.preventDefault();
     }, 4000);
 
     }
