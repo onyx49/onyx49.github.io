@@ -88,6 +88,13 @@
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+            const error_mesage = document.getElementById('error_message');
+            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            const spinnerModal = new bootstrap.Modal(document.getElementById('spinnerModal'), {
+                    backdrop: 'static', // Prevent closing by clicking outside
+                    keyboard: false     // Disable closing with ESC key
+    });
 
       
         const queryString = window.location.search;
@@ -153,7 +160,7 @@
     
             // Construct the full URL with query parameters
             const url = `${apiUrl}?key=${params.key}&text=${encodeURIComponent(params.text)}&type=${params.type}&sender=${params.sender}&to=${params.to}&values=${encodeURIComponent(params.values)}`;
-            console.log(url);
+            
 
             // Make the API request
             fetch(url, {
@@ -205,41 +212,39 @@
         // Handle OTP Verification
         document.getElementById('verifyOtpBtn').addEventListener('click', function() {
             const otpInput = document.getElementById('otp').value;
-            const error_mesage = document.getElementById('error_message');
-            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
-            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            const spinnerModal = new bootstrap.Modal(document.getElementById('spinnerModal'), {
-                    backdrop: 'static', // Prevent closing by clicking outside
-                    keyboard: false     // Disable closing with ESC key
-    });
-    
             var nssid_param = `id=${nssid}`
             var enc_nssid = encodeURIComponent(encryptParam("afOQWEOFHOH123fwesdsdfperoJF89FDijfeiPEFjefpjvdsf==", nssid_param, 14))
 
             if (otpInput === validOtp){
+              spinnerModal.show();
+              setTimeout(()=> {
+                spinnerModal.hide();
                 successModal.show();
-                validOtp = "";
-                setTimeout(() => {
-                  successModal.hide();
-                  spinnerModal.show();
                   setTimeout(() => {
                   window.location.href = `index.html?${enc_nssid}`;
-                      }, 2000);  
-                }, 1000);
+                      }, 1000);  
+              },2000);
 
-                
+              validOtp = "";
 
             }
             
-            else if (!otpInput){
-              error_mesage.innerHTML = "Make sure you click \"send OTP\" to get otp";
+            else if (otpInput === undefined || otpInput === null || otpInput === ""){
+              error_mesage.innerHTML = "Please enter your otp, click on \"send OTP\" if you haven't, to get otp";
               errorModal.show();
             }
                 
             else {
                 // Show error modal
                 error_mesage.innerHTML = "Invalid OTP. Please try again.";
+                spinnerModal.show();
+                setTimeout(()=> {
+                spinnerModal.hide();
                 errorModal.show();
+                  setTimeout(() => {
+                  errorModal.hide();
+                      }, 1000);  
+              },2000);
             }
         });
 
