@@ -113,7 +113,7 @@ function submitVote() {
     }, 2000)
 
     setTimeout(() => {
-        window.location.href = "https://script.google.com/macros/s/AKfycbwequMcRk5xN3wmMjpJsrfvLAAl2hq4gi8WN3puC29qog-tq_nqbZdC8PfR-rNIUB62oQ/exec"
+       window.location.href = "logout.html";
       // window.history.go(-2);
       //   event.preventDefault();
     }, 4000);
