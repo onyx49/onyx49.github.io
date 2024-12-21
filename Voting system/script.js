@@ -113,7 +113,7 @@ function submitVote() {
     }, 2000)
 
     setTimeout(() => {
-       window.location.href = "logout.html";
+       window.location.href = "vote_verify.html";
       // window.history.go(-2);
       //   event.preventDefault();
     }, 4000);
