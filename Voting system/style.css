@@ -118,8 +118,21 @@ margin-bottom: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   position: absolute;
-  
+}
 
+.warning-banner {
+  background-color: #ffcccc;
+  padding: 15px;
+  border-bottom: 2px solid #990000;
+  text-align: center;
+}
+.warning-banner h1 {
+  margin: 0;
+  font-size: 1.8em;
+}
+.warning-banner p {
+  margin: 5px 0;
+  font-size: 1.2em;
 }
 
 
