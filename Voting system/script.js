@@ -1,5 +1,20 @@
 
-// Function to get the value of a URL parameter
+function DisableBackButton(){
+      history.replaceState(null, null, location.href);
+      window.addEventListener('popstate', function () {
+      history.pushState(null, null, location.href);
+      });
+
+      window.history.forward()
+    }
+    DisableBackButton();
+    window.onload = DisableBackButton;
+    window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }
+    window.onload = function() {void(0)}
+
+
+
+
 const screenWidth = window.innerWidth;
     const success_modID = screenWidth <= 610 ? 'successmode' : 'successmode_PC';
     const error_modID = screenWidth <= 610 ? 'errormode' : 'errormode_PC';
