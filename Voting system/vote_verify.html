@@ -73,5 +73,19 @@
             </div>
         </div>
     </div>
+        <script>
+        function DisableBackButton(){
+              history.replaceState(null, null, location.href);
+              window.addEventListener('popstate', function () {
+              history.pushState(null, null, location.href);
+              });
+
+              window.history.forward()
+            }
+            DisableBackButton();
+            window.onload = DisableBackButton;
+            window.onpageshow = function(evt) { if (evt.persisted) DisableBackButton() }
+            window.onload = function() {void(0)}
+        </script>
 </body>
 </html>
