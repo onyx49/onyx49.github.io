@@ -1,6 +1,6 @@
 /* General Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f9;
@@ -16,19 +16,23 @@ body {
 }
 
 h1, h2 {
-  text-align: center;
-  color: #333;
-  font-weight: bold;
-}
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        color: #333;
+        text-transform: uppercase;
+        text-align: center;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+    }
 
-h1 {
-margin-bottom: 20px; 
-}
-
-.category {
-  margin-bottom: 70px;
-  
-}
+    .category h2 {
+        background: linear-gradient(45deg, #0066ff, #00ccff);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
 
 .candidate p {
@@ -39,26 +43,33 @@ margin-bottom: 20px;
 }
 
 
-
 .submit-btn {
-  display: block;
-  width: 35%;
-  padding: 10px;
-  margin: 0 auto;
-  height: 50px;
-  background-color: #007BFF;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    background: linear-gradient(135deg, #0000FF, #000080);
+    border: none;
+    border-radius: 25px;
+    padding: 8px 15px; /* Reduced padding */
+    font-size: 14px; /* Smaller font size */
+    font-weight: 600;
+    color: #fff;
+    width: auto; /* Adjusted width to fit content */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.submit-btn:hover {
-  background-color: #0056b3;
-}
+  .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(0, 0, 255, 0.4);
+  }
+
+  .submit-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 255, 0.2);
+  }
+
+  .submit-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+  }
 
 .radio-image-container {
   display: flex;
@@ -121,18 +132,17 @@ margin-bottom: 20px;
 }
 
 .warning-banner {
-  background-color: #ffcccc;
-  padding: 15px;
-  border-bottom: 2px solid #990000;
-  text-align: center;
+    background-color: #ffffff;
+    color: #721c24;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 5px;
 }
+
 .warning-banner h1 {
-  margin: 0;
-  font-size: 1.8em;
-}
-.warning-banner p {
-  margin: 5px 0;
-  font-size: 1.2em;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
 }
 
 
