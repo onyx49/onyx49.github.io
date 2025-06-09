@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Survey Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    canvas { margin-bottom: 40px; }
+    .chart-container { width: 100%; max-width: 900px; margin: auto; }
+  </style>
+</head>
+<body>
+  <h1>Social Media Survey Interactive Dashboard</h1>
+  <div class="chart-container">
+    <canvas id="dailyTimeChart"></canvas>
+    <canvas id="platformChart"></canvas>
+    <canvas id="impactScoreChart"></canvas>
+    <canvas id="studyImpactChart"></canvas>
+  </div>
+
+  <script>
+    // Chart 1: Daily Time on Social Media by Age Group
+    const dailyTimeData = {
+      labels: ['<1 hour', '1–2 hours', '3–4 hours', '5–6 hours', '7+ hours'],
+      datasets: [
+        {
+          label: '13–18',
+          data: [1, 5, 8, 10, 4],
+          backgroundColor: 'rgba(255, 99, 132, 0.6)'
+        },
+        {
+          label: '19–25',
+          data: [2, 10, 16, 13, 17],
+          backgroundColor: 'rgba(54, 162, 235, 0.6)'
+        },
+        {
+          label: '26–30',
+          data: [0, 3, 5, 3, 3],
+          backgroundColor: 'rgba(75, 192, 192, 0.6)'
+        }
+      ]
+    };
+
+    new Chart(document.getElementById('dailyTimeChart'), {
+      type: 'bar',
+      data: dailyTimeData,
+      options: {
+        responsive: true,
+        plugins: { title: { display: true, text: 'Daily Time on Social Media by Age Group' } },
+        scales: { x: { stacked: true }, y: { stacked: true } }
+      }
+    });
+
+    // Chart 2: Platform Usage
+    new Chart(document.getElementById('platformChart'), {
+      type: 'pie',
+      data: {
+        labels: ['TikTok', 'Facebook', 'WhatsApp', 'Snapchat', 'Instagram', 'YouTube', 'Twitter/X'],
+        datasets: [{
+          data: [45, 48, 41, 41, 47, 47, 41],
+          backgroundColor: [
+            '#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0', '#9966ff', '#ff9f40', '#c9cbcf'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { title: { display: true, text: 'Platform Usage Distribution' } }
+      }
+    });
+
+    // Chart 3: Impact Score Distribution
+    new Chart(document.getElementById('impactScoreChart'), {
+      type: 'bar',
+      data: {
+        labels: [-5,-4,-3,-2,-1,0,1,2,3,4,5],
+        datasets: [{
+          label: 'Impact Scores',
+          data: [9,11,5,5,9,8,10,9,11,14,9],
+          backgroundColor: 'rgba(153, 102, 255, 0.6)'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { title: { display: true, text: 'Impact Score Distribution' } }
+      }
+    });
+
+    // Chart 4: Use While Studying vs Impact on Performance
+    new Chart(document.getElementById('studyImpactChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Negative', 'No Impact', 'Positive'],
+        datasets: [
+          {
+            label: 'Use While Studying: Yes',
+            data: [32, 12, 11],
+            backgroundColor: 'rgba(255, 159, 64, 0.6)'
+          },
+          {
+            label: 'Use While Studying: No',
+            data: [24, 9, 12],
+            backgroundColor: 'rgba(201, 203, 207, 0.6)'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { title: { display: true, text: 'Use While Studying vs Impact on Performance' } },
+        scales: { x: { stacked: true }, y: { stacked: true } }
+      }
+    });
+  </script>
+</body>
+</html>
